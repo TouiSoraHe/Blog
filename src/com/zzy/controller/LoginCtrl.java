@@ -11,7 +11,7 @@ import com.zzy.dao.UserDaoExam;
 import com.zzy.user.User;
 
 /**
- * @version ´´½¨Ê±¼ä£º2017Äê10ÔÂ17ÈÕ  ÉÏÎç9:42:14
+ * @version åˆ›å»ºæ—¶é—´ï¼š2017å¹´10æœˆ17æ—¥  ä¸Šåˆ9:42:14
  * tags
  */
 @WebServlet("/LoginCtrl")
@@ -31,16 +31,17 @@ public class LoginCtrl extends HttpServlet {
 		User ret=ude.findByAccount(account);
 		if(ret==null)
 		{
-			request.getRequestDispatcher("/Login?message=ÕËºÅ²»´æÔÚ").forward(request, response);
+			request.getRequestDispatcher("/Login?message=è´¦å·ä¸å­˜åœ¨").forward(request, response);
 		}
 		else if(!ret.getPwd().equals(pwd))
 		{
-			request.getRequestDispatcher("/Login?message=ÃÜÂë´íÎó").forward(request, response);
+			request.getRequestDispatcher("/Login?message=å¯†ç é”™è¯¯").forward(request, response);
 		}
 		else
 		{
-			//ÔÊĞíµÇÂ¼
-			response.getWriter().println("³É¹¦µÇÂ¼");
+			//å…è®¸ç™»å½•
+			response.getWriter().println("æˆåŠŸç™»å½•");
+			
 		}
 		
 	}
