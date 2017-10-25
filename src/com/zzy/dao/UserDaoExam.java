@@ -11,12 +11,12 @@ import com.zzy.util.DBUtil;
 public class UserDaoExam implements UserDaoHandler {
 
 	/**
-	 * Ìí¼ÓÒ»¸öÓÃ»§µ½Êı¾İ±íÖĞ
-	 * @param u ½«ÒªÌí¼ÓµÄÓÃ»§
-	 * @return Ìí¼Ó³É¹¦Ôò·µ»Ø¸ÃÓÃ»§ÔÚÊı¾İ±íÖĞµÄidÖµ£¬Ìí¼ÓÊ§°Ü»òÕßÕËºÅÒÑ¾­´æÔÚÔò·µ»Ø-1
+	 * æ·»åŠ ä¸€ä¸ªç”¨æˆ·åˆ°æ•°æ®è¡¨ä¸­
+	 * @param u å°†è¦æ·»åŠ çš„ç”¨æˆ·
+	 * @return æ·»åŠ æˆåŠŸåˆ™è¿”å›è¯¥ç”¨æˆ·åœ¨æ•°æ®è¡¨ä¸­çš„idå€¼ï¼Œæ·»åŠ å¤±è´¥æˆ–è€…è´¦å·å·²ç»å­˜åœ¨åˆ™è¿”å›-1
 	 */
 	public int add(User u) {
-		//Èç¹ûÕËºÅÒÑ¾­´æÔÚ
+		//å¦‚æœè´¦å·å·²ç»å­˜åœ¨
 		if (findByAccount(u.getAccount()) != null) {
 			return -1;
 		}
@@ -41,8 +41,8 @@ public class UserDaoExam implements UserDaoHandler {
 	}
 
 	/**
-	 * ´ÓÊı¾İ±íÖĞÉ¾³ıÒ»ÌõÊı¾İ
-	 * @param u Òª´ÓÊı¾İ±íÖĞÉ¾³ıµÄÊı¾İ¶ÔÏó£¬×¢Òâ:¸Ãº¯ÊıÒÀÀµÓÚuser¶ÔÏóÖĞµÄidÊôĞÔ£¬ËùÒÔ²ÎÊıuµÄid²»ÄÜÎª¿Õ
+	 * ä»æ•°æ®è¡¨ä¸­åˆ é™¤ä¸€æ¡æ•°æ®
+	 * @param u è¦ä»æ•°æ®è¡¨ä¸­åˆ é™¤çš„æ•°æ®å¯¹è±¡ï¼Œæ³¨æ„:è¯¥å‡½æ•°ä¾èµ–äºuserå¯¹è±¡ä¸­çš„idå±æ€§ï¼Œæ‰€ä»¥å‚æ•°uçš„idä¸èƒ½ä¸ºç©º
 	 */
 	public void delete(User u) {
 		int id = u.getId();
@@ -61,8 +61,8 @@ public class UserDaoExam implements UserDaoHandler {
 		}
 	}
 	/**
-	 * ¸üĞÂÊı¾İµ½Êı¾İ±íÖĞ£¬ÔÚÊı¾İ±íÖĞ²éÕÒ²ÎÊıuµÄidÖµ£¬ÕÒµ½Ôò½«²ÎÊıuµÄÆäÓàÊôĞÔ¸üĞÂµ½Êı¾İ±íÖĞ
-	 * @param u Òª¸üĞÂµÄ¶ÔÏó
+	 * æ›´æ–°æ•°æ®åˆ°æ•°æ®è¡¨ä¸­ï¼Œåœ¨æ•°æ®è¡¨ä¸­æŸ¥æ‰¾å‚æ•°uçš„idå€¼ï¼Œæ‰¾åˆ°åˆ™å°†å‚æ•°uçš„å…¶ä½™å±æ€§æ›´æ–°åˆ°æ•°æ®è¡¨ä¸­
+	 * @param u è¦æ›´æ–°çš„å¯¹è±¡
 	 */
 	public void update(User u) {
 		Connection conn = DBUtil.getConnection();
@@ -84,9 +84,9 @@ public class UserDaoExam implements UserDaoHandler {
 	}
 
 	/**
-	 * ²éÕÒÒ»¸öÓÃ»§
-	 * @param id Òª²éÕÒµÄÓÃ»§µÄidÖµ
-	 * @return ·µ»Ø²éÕÒµ½µÄ¶ÔÏó£¬ÕÒ²»µ½Ôò·µ»Ønull
+	 * æŸ¥æ‰¾ä¸€ä¸ªç”¨æˆ·
+	 * @param id è¦æŸ¥æ‰¾çš„ç”¨æˆ·çš„idå€¼
+	 * @return è¿”å›æŸ¥æ‰¾åˆ°çš„å¯¹è±¡ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›null
 	 */
 	public User findById(int id) {
 		User ret = null;
@@ -115,9 +115,9 @@ public class UserDaoExam implements UserDaoHandler {
 	}
 
 	/**
-	 * ²éÕÒÒ»¸öÓÃ»§
-	 * @param account Òª²éÕÒµÄÓÃ»§µÄaccount
-	 * @return ·µ»Ø²éÕÒµ½µÄ¶ÔÏó£¬ÕÒ²»µ½Ôò·µ»Ønull
+	 * æŸ¥æ‰¾ä¸€ä¸ªç”¨æˆ·
+	 * @param account è¦æŸ¥æ‰¾çš„ç”¨æˆ·çš„account
+	 * @return è¿”å›æŸ¥æ‰¾åˆ°çš„å¯¹è±¡ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›null
 	 */
 	public User findByAccount(String account) {
 		User ret = null;

@@ -27,15 +27,25 @@ public class LoginCtrl extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		String account=request.getParameter("account");
 		String pwd = request.getParameter("password");
+		if(account==null || account.equals(""))
+		{
+			request.getRequestDispatcher("/Login.jsp?message=账号不能为空").forward(request, response);
+			return;
+		}
+		else if(pwd==null || "".equals(pwd))
+		{
+			request.getRequestDispatcher("/Login.jsp?message=密码不能为空&account="+account).forward(request, response);
+			return;
+		}
 		UserDaoExam ude = new UserDaoExam();
 		User ret=ude.findByAccount(account);
 		if(ret==null)
 		{
-			request.getRequestDispatcher("/Login?message=账号不存在").forward(request, response);
+			request.getRequestDispatcher("/Login.jsp?message=账号不存在&account="+account).forward(request, response);
 		}
 		else if(!ret.getPwd().equals(pwd))
 		{
-			request.getRequestDispatcher("/Login?message=密码错误").forward(request, response);
+			request.getRequestDispatcher("/Login.jsp?message=密码错误&account="+account).forward(request, response);
 		}
 		else
 		{

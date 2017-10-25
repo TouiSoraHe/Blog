@@ -3,13 +3,13 @@ package com.zzy.dao;
 import com.zzy.user.User;
 
 public interface UserDaoHandler {
-	//Ôö
+	//å¢ž
 	int add(User u);
-	//É¾
+	//åˆ 
 	void delete(User u);
-	//¸Ä
+	//æ”¹
 	void update(User u);
-	//²é
+	//æŸ¥
 	User findById(int id);
 	User findByAccount(String account);
 }
