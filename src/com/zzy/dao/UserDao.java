@@ -2,7 +2,7 @@ package com.zzy.dao;
 
 import com.zzy.user.User;
 
-public interface UserDaoHandler {
+public interface UserDao {
 	//增
 	int add(User u);
 	//删

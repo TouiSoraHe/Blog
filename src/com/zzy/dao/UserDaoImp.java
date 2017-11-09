@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import com.zzy.user.User;
 import com.zzy.util.DBUtil;
 
-public class UserDaoExam implements UserDaoHandler {
+public class UserDaoImp implements UserDao {
 
 	/**
 	 * 添加一个用户到数据表中

@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>个人博客注册</title>
-<link rel="stylesheet" href="css/reset.css" />
-<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="/Blog/css/reset.css" />
+<link rel="stylesheet" href="/Blog/css/common.css" />
 </head>
 <body>
 <%
@@ -32,7 +32,7 @@
 						<div class="login_title">
 							注册
 						</div>
-						<form action="/Blog/RegisterCtrl" method="post">
+						<form action="/Blog/Servlet/RegisterCtrl" method="post">
 							
 							<div class="form_text_ipt">
 								<input name="account" type="text" placeholder="账号" value=<%=account %>>
@@ -49,7 +49,7 @@
 							</div>
 							<div class="form_reg_btn" style="color:#f60"><%=message%></div>
 							<div class="form_reg_btn" style="padding:10px">
-								<span>已有帐号？</span><a href="Login.jsp">马上登录</a>
+								<span>已有帐号？</span><a href="/Blog/Login.jsp">马上登录</a>
 							</div>
 						</form>
 					</div>

@@ -1,0 +1,59 @@
+create database blog;
+
+
+use blog;
+
+
+create table user
+
+(
+
+id int not null auto_increment primary key,
+
+account varchar(15) not null,
+
+password varchar(16) not null
+
+)
+
+create table userInfo
+
+(
+
+account varchar(15) not null,
+
+name varchar(15) not null,
+
+gender varchar(2),
+
+age int,
+
+intro varchar(100)
+
+)
+
+create table articleInfo
+
+(
+
+id int not null auto_increment primary key,
+
+account varchar(15) not null,
+
+title varchar(50) not null,
+
+time datetime not null,
+
+start varchar(200) not null
+
+)
+
+create table articleContent
+
+(
+
+id int not null,
+
+content varchar(20000) not null
+
+)

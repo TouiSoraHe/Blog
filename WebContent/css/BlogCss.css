@@ -1,0 +1,123 @@
+body {
+	background: #454545;
+	line-height: 1.7;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+a,body {
+	color: #eee;
+}
+
+.side-bar{
+	float: left;
+	width: 20%;
+	position: fixed;
+}
+
+.main{
+	float: right;
+	width: 80%;
+	color: #454545;
+}
+
+.side-bar > * {
+	padding: 15px 15px;
+}
+
+.side-bar .nav,
+.side-bar .tag-list{
+	padding: 15px 0px;
+	width: 80%;
+}
+
+.side-bar .nav a,
+.side-bar .tag-list a{
+	display: block;
+	padding: 10px 20px;
+	color: #888;
+}
+
+.side-bar .nav a:hover,
+.side-bar .tag-list a:hover{
+	color: #eee;
+	background-color: #777;
+	transition: background-color 200ms;
+}
+
+.header .logo {
+	line-height: 1;
+	border: 3px solid #eee;
+	padding: 10px 20px;
+	font-size: 30px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.article-list,.article,.userinfo{
+	margin-right: 30%;
+	background: #fff;
+	padding: 20px 30px;
+	box-shadow: 0 0 3px 2px rgba(0,0,0,0.3);
+}
+
+.article-list .item{
+	margin-bottom: 23px;
+}
+
+.article-list .item > *,
+.article > *{
+	margin: 10px 0px;
+}
+
+.article-list .item .title,
+.article .title,
+.userinfo .title{
+	font-size: 21px;
+	font-weight: 700;
+	color: #454545;
+}
+
+.article-list .item .status,
+.article .status{
+	font-size: 13px;
+	color: #ccc;
+}
+
+.article-list .item .content,
+.article .content{
+	text-align: justify;
+}
+
+.userinfo .title{
+	font-size: 35px;
+	text-align: center;
+	padding: 20px;
+	margin: 20px;
+}
+
+.userinfo .content{
+	padding: 15px 0px;
+	font-weight: 700;
+}
+
+.userinfo .content .message{
+	color: #f00;
+}
+
+.userinfo .content > *{
+	padding-bottom: 10px;
+}
+
+.userinfo .bottom{
+	height: 545px;
+}
+
+.userinfo .content .save{
+	padding: 7px 10px;
+	border: none;
+	margin: 5px 0px;
+}

@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zzy.dao.UserDaoExam;
+import com.zzy.dao.UserDaoImp;
+import com.zzy.dao.UserInfoImp;
 import com.zzy.user.User;
+import com.zzy.user.UserInfo;
 
 /**
  * @version 创建时间：2017年10月25日  上午10:15:53
  * tags
  */
-@WebServlet("/RegisterCtrl")
+@WebServlet("/Servlet/RegisterCtrl")
 public class RegisterCtrl extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -44,13 +46,18 @@ public class RegisterCtrl extends HttpServlet {
 			request.getRequestDispatcher("/register.jsp?message=两次密码不一致&account="+account).forward(request, response);
 			return;
 		}
-		UserDaoExam ude = new UserDaoExam();		
+		UserDaoImp ude = new UserDaoImp();		
 		User user=new User(account,password);
 		if(ude.add(user)==-1)
 		{
 			request.getRequestDispatcher("/register.jsp?message=该账号已经存在&account="+account).forward(request, response);
 			return;
 		}
+		UserInfoImp userInfoImp = new UserInfoImp();
+		UserInfo userInfo = new UserInfo();
+		userInfo.setAccount(account);
+		userInfo.setName(account);
+		userInfoImp.add(userInfo);
 		String message=URLEncoder.encode("注册成功,立即登录吧！", "utf-8");
 		response.sendRedirect("/Blog/Login.jsp?message="+message);
 	}

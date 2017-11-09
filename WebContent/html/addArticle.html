@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/BlogCss.css">
+	<title>新建博客</title>
+</head>
+<body>
+	<div class="side-bar">
+		<div class="header">
+			<a href="#" class="logo">小明</a>
+			<div class="intro">sdfjgkljsdflkgjdflk</div>
+		</div>
+		<div class="nav">
+			<a href="#" class="item">首页</a>
+			<a href="#" class="item">个人信息</a>
+		</div>
+		<div class="tag-list">
+			<a href="#" class="item">修改个人信息</a>
+			<a href="#" class="item">修改密码</a>
+			<a href="#" class="item">退出登录</a>
+		</div>
+	</div>
+	<div class="main">
+		<div class="userinfo">
+			<div class="title">新建博客</div>
+			<hr>
+			<form class="content" action="/Blog/Servlet/UpdateUserInfoCtrl" method="post">
+				<div class="item"><input type="text" name='title' placeholder='在此输入您的标题'></div>
+				<div class="item"><textarea name="" id="" cols="100%" rows="30" placeholder='在此输入您的内容'></textarea></div>
+				<input type="submit" class="save" value="保存">
+			</form>
+			<div class="bottom"></div>
+		</div>
+	</div>
+</body>
+</html>
