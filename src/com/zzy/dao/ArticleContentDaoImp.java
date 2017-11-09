@@ -18,7 +18,7 @@ public class ArticleContentDaoImp implements ArticleContentDao {
 	public boolean add(ArticleContent a) {
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement stat = null;
-		String sql = "insert into articleContent (id,content) values(?,?)";
+		String sql = "insert into articlecontent (id,content) values(?,?)";
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setInt(1, a.getId());

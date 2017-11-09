@@ -18,7 +18,7 @@ public class ArticleInfoDaoImp implements ArticleInfoDao {
 		String account = a.getAccount();
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement stat = null;
-		String sql = "insert into articleInfo (account,title,time,start) values(?,?,?,?)";
+		String sql = "insert into articleinfo (account,title,time,start) values(?,?,?,?)";
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setString(1, account);
@@ -53,7 +53,7 @@ public class ArticleInfoDaoImp implements ArticleInfoDao {
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement stat = null;
 		ResultSet rs=null;
-		String sql = "select * from articleInfo where account=?";
+		String sql = "select * from articleinfo where account=?";
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setString(1, account);
