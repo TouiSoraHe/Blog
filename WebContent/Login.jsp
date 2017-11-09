@@ -11,12 +11,10 @@ pageEncoding="utf-8" import="com.zzy.user.User"%>
 <body>
 <%
 	User user =(User) session.getValue("user");
-	if(user!=null)
-	{
-		out.println("你已经登录"+user.getAccount());
+	if (user != null) {
+		response.sendRedirect("/Blog/BlogIndex.jsp");
 		return;
 	}
-	
 	String m=request.getParameter("message");
 	String account=request.getParameter("account");
 	if(account==null)
