@@ -24,6 +24,7 @@ public class SignOutCtrl extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("userInfo");
+		request.getSession().removeAttribute("articleInfos");
 		response.sendRedirect("/Blog/Login.jsp");
 	}
 

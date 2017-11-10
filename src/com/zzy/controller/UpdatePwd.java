@@ -28,41 +28,52 @@ public class UpdatePwd extends HttpServlet {
 		String newPwd = request.getParameter("newPassword");
 		String newRePwd = request.getParameter("newRePassword");
 		User user = (User) request.getSession().getAttribute("user");
-		if(oldPwd==null || "".equals(oldPwd))
+		StringBuilder message = new StringBuilder();
+		if(!isOk(message, oldPwd, newPwd, newRePwd, user)) 
 		{
-			request.getRequestDispatcher("/updatepwd.jsp?message=原密码不能为空").forward(request, response);
-			return;
-		}
-		else if(newPwd==null || "".equals(newPwd))
-		{
-			request.getRequestDispatcher("/updatepwd.jsp?message=新密码不能为空").forward(request, response);
-			return;
-		}
-		else if(newRePwd==null || "".equals(newRePwd))
-		{
-			request.getRequestDispatcher("/updatepwd.jsp?message=再次输入不能为空").forward(request, response);
-			return;
-		}
-		else if(!newRePwd.equals(newPwd))
-		{
-			request.getRequestDispatcher("/updatepwd.jsp?message=两次密码不一致").forward(request, response);
-			return;
-		}
-		else if(!oldPwd.equals(user.getPwd()))
-		{
-			request.getRequestDispatcher("/updatepwd.jsp?message=原密码错误").forward(request, response);
+			request.getRequestDispatcher("/updatepwd.jsp"+message).forward(request, response);
 			return;
 		}
 		UserDaoImp ude = new UserDaoImp();
 		user.setPwd(newPwd);
 		ude.update(user);
 		request.getSession().setAttribute("user", user);
-		request.getRequestDispatcher("/message.jsp?message=密码修改成功").forward(request, response);
+		message.append("?message=密码修改成功");
+		request.getRequestDispatcher("/message.jsp"+message).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+	
+	private boolean isOk(StringBuilder message,String oldPwd,String newPwd,String newRePwd,User user)
+	{
+		if(oldPwd==null || "".equals(oldPwd))
+		{
+			message.append("?message=原密码不能为空");
+			return false;
+		}
+		else if(newPwd==null || "".equals(newPwd))
+		{
+			message.append("?message=新密码不能为空");
+			return false;
+		}
+		else if(newRePwd==null || "".equals(newRePwd))
+		{
+			message.append("?message=再次输入不能为空");
+			return false;
+		}
+		else if(!newRePwd.equals(newPwd))
+		{
+			message.append("?message=两次密码不一致");
+			return false;
+		}
+		else if(!oldPwd.equals(user.getPwd()))
+		{
+			message.append("?message=原密码错误");
+			return false;
+		}
+		return true;
+	}
 }

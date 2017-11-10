@@ -14,9 +14,9 @@ account varchar(15) not null,
 
 password varchar(16) not null
 
-)
+);
 
-create table userInfo
+create table userinfo
 
 (
 
@@ -30,9 +30,9 @@ age int,
 
 intro varchar(100)
 
-)
+);
 
-create table articleInfo
+create table articleinfo
 
 (
 
@@ -46,9 +46,9 @@ time datetime not null,
 
 start varchar(200) not null
 
-)
+);
 
-create table articleContent
+create table articlecontent
 
 (
 
@@ -56,4 +56,4 @@ id int not null,
 
 content varchar(20000) not null
 
-)
+);

@@ -13,11 +13,6 @@
 </head>
 <body>
 	<%
-		User user = (User) request.getSession().getAttribute("user");
-		if (user == null) {
-			response.sendRedirect("/Blog/Login.jsp");
-			return;
-		}
 		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
 		List<ArticleInfo> arlicleInfos = (List<ArticleInfo>) request.getSession().getAttribute("articleInfos");
 	%>

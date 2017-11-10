@@ -26,21 +26,17 @@ public class UpdateUserInfoCtrl extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
 		String name = request.getParameter("name");
-		userInfo.setName((name==null || "".equals(name))?userInfo.getAccount():name);
-		int age=0;
-		try
-		{
-			age=Integer.parseInt(request.getParameter("age"));
-		}
-		catch(NumberFormatException e)
-		{
-			e.printStackTrace();
-			age=0;
+		userInfo.setName((name == null || "".equals(name)) ? userInfo.getAccount() : name);
+		int age = 0;
+		try {
+			age = Integer.parseInt(request.getParameter("age"));
+		} catch (NumberFormatException e) {
+			age = 0;
 		}
 		userInfo.setAge(age);
-		userInfo.setGender(request.getParameter("gender")==null?"未知":request.getParameter("gender"));
+		userInfo.setGender(request.getParameter("gender") == null ? "未知" : request.getParameter("gender"));
 		userInfo.setIntro(request.getParameter("intro"));
-		UserInfoImp userInfoImp= new UserInfoImp();
+		UserInfoImp userInfoImp = new UserInfoImp();
 		userInfoImp.update(userInfo);
 		request.getSession().setAttribute("userInfo", userInfo);
 		request.getRequestDispatcher("/userinfo.jsp").forward(request, response);

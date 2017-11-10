@@ -32,32 +32,29 @@ public class AddArticleCtrl extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+
 		ArticleContentDao articleContentDaoImp = new ArticleContentDaoImp();
 		ArticleInfoDao articleInfoDao = new ArticleInfoDaoImp();
-		UserInfo userInfo =(UserInfo) request.getSession().getAttribute("userInfo");
+		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		if(title==null || "".equals(title))
-		{
-			if(content!=null && !content.equals(""))
-			{
+		if (title == null || "".equals(title)) {
+			if (content != null && !content.equals("")) {
 				request.setAttribute("content", content);
 			}
 			request.getRequestDispatcher("/addArticle.jsp?message=标题不能为空").forward(request, response);
 			return;
 		}
-		if(content==null||"".equals(content))
-		{
+		if (content == null || "".equals(content)) {
 			request.setAttribute("title", title);
 			request.getRequestDispatcher("/addArticle.jsp?message=内容不能为空").forward(request, response);
 			return;
 		}
-		articleInfoDao.add(new ArticleInfo(userInfo.getAccount(), title, new Date(), (content.length()>146?
-				content.substring(0, 146):content)+"......"));
+		articleInfoDao.add(new ArticleInfo(userInfo.getAccount(), title, new Date(),
+				(content.length() > 146 ? content.substring(0, 146) : content) + "......"));
 		List<ArticleInfo> articleInfos = articleInfoDao.findByAccount(userInfo.getAccount());
 		for (ArticleInfo articleInfo : articleInfos) {
-			if(articleInfo.getTitle().equals(title))
-			{
+			if (articleInfo.getTitle().equals(title)) {
 				ArticleContent a = new ArticleContent();
 				a.setId(articleInfo.getId());
 				a.setContent(content);
@@ -66,7 +63,6 @@ public class AddArticleCtrl extends HttpServlet {
 		}
 		request.getSession().setAttribute("articleInfos", articleInfos);
 		request.getRequestDispatcher("/message.jsp?message=添加博客成功").forward(request, response);
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

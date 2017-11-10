@@ -13,15 +13,13 @@
 </head>
 <body>
 	<%
-		User user = (User) request.getSession().getAttribute("user");
 		ArticleInfo articleInfo =(ArticleInfo) request.getAttribute("articleInfo");
 		ArticleContent articleContent = (ArticleContent) request.getAttribute("articleContent");
-		if (user == null || articleInfo==null || articleContent==null) {
-			response.sendRedirect("/Blog/Login.jsp");
+		if (articleContent==null) {
+			request.getRequestDispatcher("/BlogIndex.jsp").forward(request, response);
 			return;
 		}
 		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
-		List<ArticleInfo> arlicleInfos = (List<ArticleInfo>) request.getSession().getAttribute("articleInfos");
 	%>
 	<div class="side-bar">
 		<div class="header">

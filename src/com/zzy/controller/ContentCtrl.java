@@ -27,24 +27,28 @@ public class ContentCtrl extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		List<ArticleInfo> articleInfos =(List<ArticleInfo>) request.getSession().getAttribute("articleInfos");
-		ArticleInfo articleInfo=null;
-		if(articleInfos==null || request.getParameter("id")==null)
-		{
+
+		List<ArticleInfo> articleInfos = (List<ArticleInfo>) request.getSession().getAttribute("articleInfos");
+		ArticleInfo articleInfo = null;
+		if (request.getParameter("id") == null) {
 			request.getRequestDispatcher("/message.jsp?message=页面不存在").forward(request, response);
 			return;
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = 0;
+		try {
+			id = Integer.parseInt(request.getParameter("id"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.getRequestDispatcher("/message.jsp?message=错误的ID号").forward(request, response);
+			return;
+		}
 		for (ArticleInfo aInfo : articleInfos) {
-			if(aInfo.getId()==id)
-			{
-				articleInfo=aInfo;
+			if (aInfo.getId() == id) {
+				articleInfo = aInfo;
 			}
 		}
 		ArticleContent articleContent = new ArticleContentDaoImp().findById(id);
-		if(articleInfo==null || articleContent==null)
-		{
+		if (articleInfo == null || articleContent == null) {
 			request.getRequestDispatcher("/message.jsp?message=页面不存在").forward(request, response);
 			return;
 		}

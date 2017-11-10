@@ -31,26 +31,12 @@ public class RegisterCtrl extends HttpServlet {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		String rePassword = request.getParameter("repassword");
-		if(account==null || account.equals(""))
+		UserDaoImp ude = new UserDaoImp();
+		User user = new User(account, password);
+		StringBuilder message = new StringBuilder();
+		if(!isOk(message, account, password, rePassword,ude,user))
 		{
-			request.getRequestDispatcher("/register.jsp?message=账号不能为空").forward(request, response);
-			return;
-		}
-		else if(password==null || "".equals(password))
-		{
-			request.getRequestDispatcher("/register.jsp?message=密码不能为空&account="+account).forward(request, response);
-			return;
-		}
-		else if(rePassword==null || "".equals(rePassword) || !password.equals(rePassword))
-		{
-			request.getRequestDispatcher("/register.jsp?message=两次密码不一致&account="+account).forward(request, response);
-			return;
-		}
-		UserDaoImp ude = new UserDaoImp();		
-		User user=new User(account,password);
-		if(ude.add(user)==-1)
-		{
-			request.getRequestDispatcher("/register.jsp?message=该账号已经存在&account="+account).forward(request, response);
+			request.getRequestDispatcher("/register.jsp"+message.toString()).forward(request, response);
 			return;
 		}
 		UserInfoImp userInfoImp = new UserInfoImp();
@@ -58,8 +44,8 @@ public class RegisterCtrl extends HttpServlet {
 		userInfo.setAccount(account);
 		userInfo.setName(account);
 		userInfoImp.add(userInfo);
-		String message=URLEncoder.encode("注册成功,立即登录吧！", "utf-8");
-		response.sendRedirect("/Blog/Login.jsp?message="+message);
+		message.append("?message=注册成功,立即登录吧！");
+		request.getRequestDispatcher("/Login.jsp"+message).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -67,4 +53,22 @@ public class RegisterCtrl extends HttpServlet {
 		doGet(request, response);
 	}
 
+	private boolean isOk(StringBuilder message, String account, String password, String rePassword,
+			UserDaoImp ude,User user) {
+		if (account == null || account.equals("")) {
+			message.append("?message=账号不能为空");
+			return false;
+		} else if (password == null || "".equals(password)) {
+			message.append("?message=密码不能为空&account=" + account);
+			return false;
+		} else if (rePassword == null || "".equals(rePassword) || !password.equals(rePassword)) {
+			message.append("?message=两次密码不一致&account=" + account);
+			return false;
+		}
+		if (ude.add(user) == -1) {
+			message.append("?message=该账号已经存在&account=" + account);
+			return false;
+		}
+		return true;
+	}
 }

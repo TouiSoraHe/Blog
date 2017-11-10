@@ -35,51 +35,58 @@ public class LoginCtrl extends HttpServlet {
 		String account = request.getParameter("account");
 		String pwd = request.getParameter("password");
 		String autologin = request.getParameter("autologin");
-		if (account == null || account.equals("")) {
-			request.getRequestDispatcher("/Login.jsp?message=账号不能为空").forward(request, response);
-			return;
-		} else if (pwd == null || "".equals(pwd)) {
-			request.getRequestDispatcher("/Login.jsp?message=密码不能为空&account=" + account).forward(request, response);
-			return;
-		}
 		UserDaoImp ude = new UserDaoImp();
 		User user = ude.findByAccount(account);
-		if (user == null) {
-			request.getRequestDispatcher("/Login.jsp?message=账号不存在&account=" + account).forward(request, response);
-		} else if (!user.getPwd().equals(pwd)) {
-			request.getRequestDispatcher("/Login.jsp?message=密码错误&account=" + account).forward(request, response);
-		} else {
-			//允许登录
-			request.getSession().setAttribute("user", user);
-			UserInfo userInfo=new UserInfoImp().findByAccount(user.getAccount());
-			List<ArticleInfo> articleInfos = new ArticleInfoDaoImp().findByAccount(user.getAccount());
-			request.getSession().setAttribute("userInfo", userInfo);
-			request.getSession().setAttribute("articleInfos", articleInfos);
-			for (Cookie cookie : request.getCookies()) {
-				if (cookie.getName().equals("JSESSIONID")) {
-					if ("on".equals(autologin)) {
-						cookie.setMaxAge(604800);
-						cookie.setPath("/Blog");
-						cookie.setHttpOnly(true);
-						response.addCookie(cookie);
-					}
-					else
-					{
-						cookie.setMaxAge(-1);
-						cookie.setPath("/Blog");
-						cookie.setHttpOnly(true);
-						response.addCookie(cookie);
-					}
+		StringBuilder m = new StringBuilder();
+		if (!isOK(m, account, pwd, user)) {
+			request.getRequestDispatcher("/Login.jsp" + m).forward(request, response);
+			return;
+		}
+		//允许登录
+		UserInfo userInfo = new UserInfoImp().findByAccount(user.getAccount());
+		List<ArticleInfo> articleInfos = new ArticleInfoDaoImp().findByAccount(user.getAccount());
+		request.getSession().setAttribute("user", user);
+		request.getSession().setAttribute("userInfo", userInfo);
+		request.getSession().setAttribute("articleInfos", articleInfos);
+		for (Cookie cookie : request.getCookies()) {
+			if (cookie.getName().equals("JSESSIONID")) {
+				if ("on".equals(autologin)) {
+					cookie.setMaxAge(604800);
+					cookie.setPath("/Blog");
+					cookie.setHttpOnly(true);
+					response.addCookie(cookie);
+				} else {
+					cookie.setMaxAge(-1);
+					cookie.setPath("/Blog");
+					cookie.setHttpOnly(true);
+					response.addCookie(cookie);
 				}
 			}
-			response.sendRedirect("/Blog/BlogIndex.jsp");
 		}
-
+		request.getRequestDispatcher("/BlogIndex.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	private boolean isOK(StringBuilder message, String account, String pwd, User user) {
+		if (account == null || "".equals(account)) {
+			message.append("?message=账号不能为空");
+			return false;
+		} else if (pwd == null || "".equals(pwd)) {
+			message.append("?message=密码不能为空&account=" + account);
+			return false;
+		}
+		if (user == null) {
+			message.append("?message=账号不存在&account=" + account);
+			return false;
+		} else if (!user.getPwd().equals(pwd)) {
+			message.append("?message=密码错误&account=" + account);
+			return false;
+		}
+		return true;
 	}
 
 }
